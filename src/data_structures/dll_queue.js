@@ -13,17 +13,17 @@ class DLLQueue {
 
   /**
    * Add an element to the back of the queue
-   * 
+   *
    * @param {any} element Data to track
    * @returns {ticket} Cancellation ticket
    */
   enqueue(element) {
-
+    this.storage.insertTail(element);
   }
 
   /**
    * Remove an element from the queue
-   * 
+   *
    * @param {ticket} ticket Cancellation ticket, as returned by `enqueue`
    * @returns Stored element
    */
@@ -33,20 +33,20 @@ class DLLQueue {
 
   /**
    * Remove the element at the front of the queue
-   * 
+   *
    * @returns Stored element
    */
   dequeue() {
-
+    return this.storage.removeHead();
   }
 
   /**
    * How many elements are currently in the queue?
-   * 
+   *
    * @returns {number} Current count
    */
   count() {
-
+    return this.storage.count();
   }
 
   /**
@@ -58,7 +58,7 @@ class DLLQueue {
 
   /**
    * Invoke a callback on each element in the queue, in insertion order
-   * 
+   *
    * @param {forEachCallback} callback Function to invoke
    */
   forEach(callback) {
