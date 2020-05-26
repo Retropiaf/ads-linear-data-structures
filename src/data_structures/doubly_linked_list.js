@@ -51,49 +51,23 @@ class DoublyLinkedList {
   }
 
   removeHead() {
-    const currHead = this._head();
-    if (!currHead._active) {
-      return currHead.element;
-    }
-    currHead.next.prev = this._sentinel;
-    this._sentinel.next = currHead.next;
-    return currHead.element;
+    return this._head().remove();
   }
 
   removeTail() {
-    const currTail = this._tail();
-    if (!currTail._active) {
-      return currTail.element;
-    }
-    currTail.prev.next = this._sentinel;
-    this._sentinel.prev = currTail.prev;
-    return currTail.element;
+    return this._tail().remove();
   }
 
   remove(node) {
-    // let currentNode = this._sentinel.next;
-    if (!(node instanceof DLLNode)) {
+    if (!(node instanceof DLLNode) && !node._active) {
       return undefined;
     }
-    if (!node._active) {
-      return undefined;
-    }
-    let currentNode = this._sentinel;
-
-    while (currentNode.next._active) {
-      if (currentNode.next.element === node.element) {
-        currentNode.next = currentNode.next.next;
-        currentNode.next.prev = currentNode;
-        return "removed";
-      }
-      currentNode = currentNode.next;
-    }
-    return undefined;
+    return node.remove();
   }
 
   forEach(callback) {
     let count = 0;
-    let currentNode = this._sentinel.next;
+    let currentNode = this._head();
     while (currentNode._active) {
       callback(currentNode.element, count, this);
       currentNode = currentNode.next;
@@ -105,8 +79,8 @@ class DoublyLinkedList {
     let count = 0;
     let currentNode = this._sentinel.next;
     while (currentNode._active) {
-      currentNode = currentNode.next;
       count++;
+      currentNode = currentNode.next;
     }
     return count;
   }
